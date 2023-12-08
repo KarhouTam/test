@@ -10,10 +10,8 @@ jobs:
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
-          ref: master
+          token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Push changes to dev branch
-        env:
-          PAT: ${{ secrets.PERSONAL_TOKEN }}
         run: |
           git checkout -b dev
           git merge master
