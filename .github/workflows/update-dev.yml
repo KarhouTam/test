@@ -15,8 +15,8 @@ jobs:
         env:
           PAT: ${{ secrets.PERSONAL_TOKEN }}
         run: |
-          git checkout dev
+          git checkout -b dev
           git merge master
           git config --global user.email "karhoutam@qq.com"
           git config --global user.name "KarhouTam"
-          git push --force origin dev
+          git push --force -u origin dev
