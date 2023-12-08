@@ -13,6 +13,7 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Check if dev branch is up-to-date
         run: |
+          git pull origin dev
           if $(git log --oneline dev ^master | wc -l) == 0
           then
             echo "Dev branch is ahead of master. Skipping update."
