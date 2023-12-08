@@ -1,32 +1,22 @@
-name: Update Dev Branch
-
+name: Update dev branch
 on:
   push:
     branches:
       - master
-
 jobs:
   update-dev:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Add git config
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"      
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PERSONAL_TOKEN }}
-
-    - name: Fetch changes from remote dev branch
-      run: |
-        git fetch origin dev:dev || git checkout -b dev
-
-    - name: Checkout dev branch
-      run: git checkout dev
-
-    - name: Merge changes from master to dev
-      run: |
-        git pull origin master --no-edit --allow-unrelated-histories
-        git push origin dev
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Push changes to dev branch
+        env:
+          PAT: ${{ secrets.PAT }}
+        run: |
+          git checkout dev
+          git merge master
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git push --force origin dev
