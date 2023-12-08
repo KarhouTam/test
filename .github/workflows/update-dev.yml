@@ -1,0 +1,28 @@
+name: Update Dev Branch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PERSONAL_TOKEN }}
+
+    - name: Fetch changes from remote dev branch
+      run: |
+        git fetch origin dev:dev || git checkout -b dev
+
+    - name: Checkout dev branch
+      run: git checkout dev
+
+    - name: Merge changes from master to dev
+      run: |
+        git merge origin/master --no-edit --allow-unrelated-histories
+        git push origin dev
