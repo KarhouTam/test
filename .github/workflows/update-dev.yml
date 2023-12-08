@@ -24,7 +24,7 @@ jobs:
           fi
       - name: Push changes to dev branch
         run: |
-          git merge master
+          git merge master --allow-unrelated-histories
           git push --force -u origin dev
     # steps:
     #   - name: Checkout master branch
