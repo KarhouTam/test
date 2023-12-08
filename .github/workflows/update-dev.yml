@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Check if dev branch is up-to-date
         run: |
-          if git log --oneline dev ^master | grep -q .
+          if $(git log --oneline dev ^master | wc -l) == 0
           then
             echo "Dev branch is ahead of master. Skipping update."
             exit 0
