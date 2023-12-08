@@ -7,6 +7,10 @@ jobs:
   update-dev:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Check if dev branch is up-to-date
         run: |
           if $(git log --oneline dev ^master | wc -l) == 0
@@ -14,10 +18,6 @@ jobs:
             echo "Dev branch is ahead of master. Skipping update."
             exit 0
           fi
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Push changes to dev branch
         run: |
           git checkout -b dev
