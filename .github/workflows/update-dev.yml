@@ -13,10 +13,10 @@ jobs:
           ref: master
       - name: Push changes to dev branch
         env:
-          PAT: ${{ secrets.PAT }}
+          PAT: ${{ secrets.PERSONAL_TOKEN }}
         run: |
           git checkout dev
           git merge master
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "karhoutam@qq.com"
+          git config --global user.name "KarhouTam"
           git push --force origin dev
