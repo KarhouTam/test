@@ -7,6 +7,13 @@ jobs:
   update-dev:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if dev branch is up-to-date
+        run: |
+          if git log --oneline dev ^master | grep -q .
+          then
+            echo "Dev branch is ahead of master. Skipping update."
+            exit 0
+          fi
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
@@ -15,6 +22,18 @@ jobs:
         run: |
           git checkout -b dev
           git merge master
-          git config --global user.email "karhoutam@qq.com"
-          git config --global user.name "KarhouTam"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "Github Actions"
           git push --force -u origin dev
+    # steps:
+    #   - name: Checkout master branch
+    #     uses: actions/checkout@v2
+    #     with:
+    #       token: ${{ secrets.PERSONAL_TOKEN }}
+    #   - name: Push changes to dev branch
+    #     run: |
+    #       git checkout -b dev
+    #       git merge master
+    #       git config --global user.email "karhoutam@qq.com"
+    #       git config --global user.name "KarhouTam"
+    #       git push --force -u origin dev
