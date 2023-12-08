@@ -28,5 +28,5 @@ jobs:
 
     - name: Merge changes from master to dev
       run: |
-        git merge origin/master --no-edit --allow-unrelated-histories
+        git pull origin/master --no-edit --allow-unrelated-histories
         git push origin dev
