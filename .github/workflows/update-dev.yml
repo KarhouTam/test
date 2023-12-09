@@ -17,9 +17,8 @@ jobs:
           git config --global user.name "KarhouTam"
           git fetch
           git checkout -b dev
-          master_commit=$(git rev-parse master)
-          dev_commit=$(git rev-parse dev)
-          if [ "$master_commit" != "$dev_commit" ]; then
+          diff=$(git log --oneline dev ^master | wc -l)
+          if [ "$diff" != 0 ]; then
             echo "::set-output name=sync_required::false"
             else
               echo "::set-output name=sync_required::true"
