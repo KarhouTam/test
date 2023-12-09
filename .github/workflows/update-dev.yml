@@ -15,6 +15,7 @@ jobs:
         run: |
           git config --global user.email "karhoutam@qq.com"
           git config --global user.name "KarhouTam"
+          git fetch
           git checkout -b dev
           master_commit=$(git rev-parse master)
           dev_commit=$(git rev-parse dev)
