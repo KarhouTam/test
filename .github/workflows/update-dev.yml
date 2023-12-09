@@ -11,9 +11,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
-      - name: Push changes to dev branch
+      - name: Check if dev is ahead of master
+        run: |
+          master_commit=$(git rev-parse master)
+          dev_commit=$(git rev-parse dev)
+          if [ "$master_commit" != "$dev_commit" ]; then
+            echo "Dev is ahead of master. Skipping sync."
+            exit 0
+          fi
+      - name: Sync dev with master
         run: |
           git config --global user.email "karhoutam@qq.com"
           git config --global user.name "KarhouTam"
           git checkout -b dev
-          sh ./.github/workflows/a.sh
+          git pull origin master
+          git push origin dev
