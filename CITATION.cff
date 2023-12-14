@@ -9,7 +9,6 @@ message: >-
 type: software
 authors:
   - given-names: Jiahao
-    family-names: Tan
     email: karhoutam@outlook.com
     affiliation: Shenzhen University
 repository-code: 'https://github.com/KarhouTam/FL-bench'
