@@ -130,8 +130,8 @@ Running `python generate_data.py -d domain` *without* additional arguments would
 - Note that `python generate_data.py -d domain` is at the end of [`data/domain/preprocess.py`](https://github.com/KarhouTam/FL-bench/tree/master/data/domain/preprocess.py) already, so you don't need to run that command by yourself after running `preprocess.py`.
 
 <p float="left">
-  <img src="../.github/images/domainnet/original_class.png" width="400" />
-  <img src="../.github/images/domainnet/original_domain.png" width="400" /> 
+  <img src="../.github/images/domainnet/original_class.png" width="320" />
+  <img src="../.github/images/domainnet/original_domain.png" width="320" /> 
 </p>
 
 
@@ -146,8 +146,8 @@ python generate_data.py -d domain -a 1.0 -cn 10
 ```
 
 <p float="left">
-  <img src="../.github/images/domainnet/a1_class.png" width="400" />
-  <img src="../.github/images/domainnet/a1_domain.png" width="400" /> 
+  <img src="../.github/images/domainnet/a1_class.png" width="320" />
+  <img src="../.github/images/domainnet/a1_domain.png" width="320" /> 
 </p>
 
 #### Out-of-Distribution Settings 🕳
@@ -162,8 +162,8 @@ Note that if `--ood_domains` is not empty, FL-bench will map the data labels fro
 python generate_data.py -d domain -a 1.0 -c --ood_domains sketch
 ```
 <p float="left">
-  <img src="../.github/images/domainnet/ood1_class.png" width="400" />
-  <img src="../.github/images/domainnet/ood1_domain.png" width="400" /> 
+  <img src="../.github/images/domainnet/ood1_class.png" width="320" />
+  <img src="../.github/images/domainnet/ood1_domain.png" width="320" /> 
 </p>
 
 
@@ -172,8 +172,8 @@ python generate_data.py -d domain -a 1.0 -c --ood_domains sketch quickdraw
 ```
 
 <p float="left">
-  <img src="../.github/images/domainnet/ood2_class.png" width="400" />
-  <img src="../.github/images/domainnet/ood2_domain.png" width="400" /> 
+  <img src="../.github/images/domainnet/ood2_class.png" width="320" />
+  <img src="../.github/images/domainnet/ood2_domain.png" width="320" /> 
 </p>
 
 
