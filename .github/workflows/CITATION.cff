@@ -1,0 +1,25 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: FL-bench
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Jiahao
+    family-names: Tan
+    email: karhoutam@outlook.com
+    affiliation: Shenzhen University
+  - given-names: Xinpeng
+    family-names: Wang
+    affiliation: The Chinese University of Hong Kong
+    email: xinpengwang@link.cuhk.edu.cn
+repository-code: 'https://github.com/KarhouTam/FL-bench'
+abstract: >-
+  A benchmark for evaluating well-known federated learning
+  (FL) and personalized federated learning (pFL) methods.
+keywords:
+  - Federated Learning
+license: GPL-2.0
