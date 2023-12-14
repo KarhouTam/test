@@ -9,8 +9,13 @@ message: >-
 type: software
 authors:
   - given-names: Jiahao
+    family-names: Tan
     email: karhoutam@outlook.com
     affiliation: Shenzhen University
+  - given-names: Xinpeng
+    family-names: Wang
+    affiliation: The Chinese University of Hong Kong
+    email: xinpengwang@link.cuhk.edu.cn
 repository-code: 'https://github.com/KarhouTam/FL-bench'
 abstract: >-
   A benchmark for evaluating well-known federated learning
