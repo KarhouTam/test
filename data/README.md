@@ -31,6 +31,12 @@ sh tiny_imagenet.sh
 
 This benckmark offers 5 partitioning schemes.
 
+### IID
+<img align="right" src="../.github/images/schemes/iid.png" alt="Image" width="250"/>
+
+Partition data evenly. Client data distributions are similar to each other.
+
+- `--iid`: Set as a non-zero value to activate it. Note that this setting has the highest priority, means that activating this scheme will deactivate all other shcemes.
 
 ### Dirichlet
 
