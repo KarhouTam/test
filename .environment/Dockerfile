@@ -9,9 +9,13 @@ RUN apt update && \
 
 WORKDIR /root
 
-RUN curl -O https://raw.githubusercontent.com/KarhouTam/FL-bench/master/requirements.txt && \
-    pip install -r requirements.txt && \ 
-    rm requirements.txt
-
+RUN git clone https://github.com/KarhouTam/FL-bench.git && \
+    cd FL-bench && \
+    sed -i "10,14d" pyproject.toml && \
+    poetry lock --no-update && \
+    poetry install --no-root && \
+    cd /root && \
+    rm -rf FL-bench
 # port for visdom
+CMD poetry shell
 EXPOSE 8097
