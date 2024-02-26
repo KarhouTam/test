@@ -12,7 +12,8 @@ ADD ${REPO_PATH} /root
 
 WORKDIR /root/${REPO_NAME}
 
-RUN pwd
+RUN pwd && \
+    ls -la
 
 RUN cd .environment && \
     sed -i "10,14d" pyproject.toml && \
