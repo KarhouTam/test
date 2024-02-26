@@ -13,8 +13,6 @@ env:
   GITHUB_REGISTRY: ghcr.io
   ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKERHUB_REGISTRY: docker.io
-  IMAGE_NAME: karhoutam/test
-
 
 jobs:
   build:
@@ -57,12 +55,14 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ".environment/Dockerfile"
+          context: .environment
           push: ${{ github.event_name != 'pull_request' }}
+          build-args: |
+            REPO_PATH=.
+            REPO_NAME=${{ github.repository_name }}
           tags: |
-            ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_NAME }}:master
-            ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_NAME }}:master
-            ${{ env.DOCKERHUB_REGISTRY }}/${{ env.IMAGE_NAME }}:master
+            ${{ env.GITHUB_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
+            ${{ env.ALIYUN_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
+            ${{ env.DOCKERHUB_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
           cache-from: type=gha
           cache-to: type=gha,mode=max
