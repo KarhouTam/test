@@ -8,7 +8,7 @@ RUN apt update && \
     pip install --upgrade pip && \
     pip install poetry
 
-COPY ../../${REPO_NAME} /root
+COPY . /root
 
 WORKDIR /root/${REPO_NAME}
 
