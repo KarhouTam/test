@@ -7,8 +7,6 @@ RUN apt update && \
     pip install --upgrade pip && \
     pip install poetry
 
-WORKDIR /root
-
 RUN cd .environment \
     sed -i "10,14d" pyproject.toml && \
     poetry lock --no-update && \
