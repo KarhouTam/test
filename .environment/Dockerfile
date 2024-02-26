@@ -20,7 +20,7 @@ RUN cd .environment && \
     poetry lock --no-update && \
     poetry install --no-root 
     
-CMD poetry shell -C /root/${REPO_NAME}/.environment && nohup visdom &> /dev/null &
+CMD poetry shell -C .environment -q
 
 # port for visdom
 EXPOSE 8097
