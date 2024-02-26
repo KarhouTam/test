@@ -61,7 +61,7 @@ jobs:
           file: "{context}/.environment/Dockerfile"
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:master
+            ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_NAME }}:master
             ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_NAME }}:master
             ${{ env.DOCKERHUB_REGISTRY }}/${{ env.IMAGE_NAME }}:master
           cache-from: type=gha
