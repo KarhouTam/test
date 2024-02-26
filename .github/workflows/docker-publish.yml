@@ -61,8 +61,8 @@ jobs:
             REPO_PATH=.
             REPO_NAME=${{ github.repository_name }}
           tags: |
-            ${{ env.GITHUB_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
-            ${{ env.ALIYUN_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
-            ${{ env.DOCKERHUB_REGISTRY }}/${{ github.actor }}/${{ github.repository_name }}:master
+            ${{ env.GITHUB_REGISTRY }}/${{ github.repository }}:master
+            ${{ env.ALIYUN_REGISTRY }}/${{ github.repository }}:master
+            ${{ env.DOCKERHUB_REGISTRY }}/${{ github.repository }}:master
           cache-from: type=gha
           cache-to: type=gha,mode=max
