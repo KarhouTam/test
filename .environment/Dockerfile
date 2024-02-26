@@ -9,7 +9,7 @@ RUN apt update && \
     pip install poetry
 
 ADD ${REPO_PATH} /root
-RUN cd ${REPO_PATH}/.environment && \
+RUN cd /root/${REPO_NAME}/.environment && \
     sed -i "10,14d" pyproject.toml && \
     poetry lock --no-update && \
     poetry install --no-root 
