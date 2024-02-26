@@ -9,13 +9,16 @@ RUN apt update && \
     pip install poetry
 
 ADD ${REPO_PATH} /root
-RUN cd /root/${REPO_NAME}/.environment && \
-    sed -i "10,14d" pyproject.toml && \
-    poetry lock --no-update && \
-    poetry install --no-root 
 
 WORKDIR /root/${REPO_NAME}
 
+RUN pwd
+
+RUN cd .environment && \
+    sed -i "10,14d" pyproject.toml && \
+    poetry lock --no-update && \
+    poetry install --no-root 
+    
 CMD poetry shell -C /root/${REPO_NAME}/.environment && nohup visdom &> /dev/null &
 
 # port for visdom
