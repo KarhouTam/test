@@ -11,8 +11,6 @@ env:
   GITHUB_REGISTRY: ghcr.io
   ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKERHUB_REGISTRY: docker.io
-  IMAGE_OWNER: $(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')
-  IMAGE_NAME: $(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
   IMAGE_TAG: master
 
 jobs:
@@ -20,5 +18,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps: 
+      - name: Set Lowercase Variables
+        run: |
+          echo "IMAGE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
       - name: Print variables
-        run: echo ${IMAGE_NAME} ${IMAGE_NAME}
+        run: echo ${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}
