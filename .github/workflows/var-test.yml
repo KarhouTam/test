@@ -11,8 +11,8 @@ env:
   GITHUB_REGISTRY: ghcr.io
   ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKERHUB_REGISTRY: docker.io
-  IMAGE_OWNER: ${{ github.actor | tolower }}
-  IMAGE_NAME: ${{ github.repository | tolower }}
+  IMAGE_OWNER: $(${{ github.actor }} | tr '[:upper:]' '[:lower:]')
+  IMAGE_NAME: $(${{ github.repository | tolower }} | tr '[:upper:]' '[:lower:]')
   IMAGE_TAG: master
 
 jobs:
@@ -21,4 +21,4 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Print variables
-        run: echo ${{ github.actor | tolower }} && echo ${{ github.repository | tolower }} && echo ${{ github.event.repository.name | tolower }}
+        run: echo ${IMAGE_NAME} ${IMAGE_NAME}
