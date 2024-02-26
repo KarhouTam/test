@@ -4,8 +4,9 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - ".environment/requirements.txt"
+      - ".environment/poetry.lock"
       - ".environment/Dockerfile"
+      - ".github/workflows/docker-publish.yml"
 
 
 env:
