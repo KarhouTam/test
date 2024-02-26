@@ -9,13 +9,10 @@ RUN apt update && \
 
 WORKDIR /root
 
-RUN git clone https://github.com/KarhouTam/FL-bench.git && \
-    cd FL-bench && \
+RUN cd .environment \
     sed -i "10,14d" pyproject.toml && \
     poetry lock --no-update && \
     poetry install --no-root && \
-    cd /root && \
-    rm -rf FL-bench
 # port for visdom
 CMD poetry shell
 EXPOSE 8097
