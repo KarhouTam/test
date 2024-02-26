@@ -55,14 +55,15 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .environment
+          context: .
+          file: .environment/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           build-args: |
             REPO_PATH=.
-            REPO_NAME=${{ github.repository_name }}
+            REPO_NAME=${{ github.event.repository.name }}
           tags: |
-            ${{ env.GITHUB_REGISTRY }}/${{ github.repository }}:master
-            ${{ env.ALIYUN_REGISTRY }}/${{ github.repository }}:master
-            ${{ env.DOCKERHUB_REGISTRY }}/${{ github.repository }}:master
+            ${{ env.GITHUB_REGISTRY }}/karhoutam/${{ github.event.repository.name }}:master
+            ${{ env.ALIYUN_REGISTRY }}/karhoutam/${{ github.event.repository.name }}:master
+            ${{ env.DOCKERHUB_REGISTRY }}/karhoutam/${{ github.event.repository.name }}:master
           cache-from: type=gha
           cache-to: type=gha,mode=max
