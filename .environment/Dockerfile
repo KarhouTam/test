@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
-
+ARG REPO_NAME
+ARG REPO_PATH
 RUN apt update && \
     apt install build-essential git python3.10 python3-pip -y && \
     cd /usr/bin && \
@@ -7,10 +8,15 @@ RUN apt update && \
     pip install --upgrade pip && \
     pip install poetry
 
-RUN cd .environment \
+ADD ${REPO_PATH} /root
+RUN cd ${REPO_PATH}/.environment && \
     sed -i "10,14d" pyproject.toml && \
     poetry lock --no-update && \
-    poetry install --no-root && \
+    poetry install --no-root 
+
+WORKDIR /root/${REPO_NAME}
+
+CMD poetry shell -C /root/${REPO_NAME}/.environment && nohup visdom &> /dev/null &
+
 # port for visdom
-CMD poetry shell
 EXPOSE 8097
