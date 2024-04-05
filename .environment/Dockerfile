@@ -1,26 +1,17 @@
 FROM ubuntu:22.04
-ARG REPO_NAME
-ARG REPO_PATH
+
 RUN apt update && \
-    apt install build-essential git python3.10 python3-pip -y && \
+    apt install git python3.10 python3-pip -y && \
     cd /usr/bin && \
-    ln -s python3.10 python && \
-    pip install --upgrade pip && \
-    pip install poetry
+    ln -s python3.10 python
 
-COPY . /root/${REPO_NAME}
+WORKDIR /root
 
-WORKDIR /root/${REPO_NAME}
+COPY requirements.txt /tmp
 
-RUN pwd && \
-    ls -la
+RUN pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt
 
-RUN cd .environment && \
-    sed -i "10,14d" pyproject.toml && \
-    poetry lock --no-update && \
-    poetry install --no-root 
-    
-CMD poetry shell -C .environment -q
 
 # port for visdom
-EXPOSE 8097
+EXPOSE 8097 6006
