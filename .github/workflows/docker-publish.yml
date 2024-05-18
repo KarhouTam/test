@@ -43,8 +43,8 @@ jobs:
           cache-to: type=gha,mode=max
 
   push-ghcr:
-    name: Push to ghcr.io
-    needs: build
+    name: Push to ghcr
+    needs: build-image
     runs-on: ubuntu-latest
 
     steps:
@@ -74,8 +74,8 @@ jobs:
             ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
   push-dockerhub:
-    name: Push to ghcr.io
-    needs: build
+    name: Push to dockerhub
+    needs: build-image
     runs-on: ubuntu-latest
 
     steps:
@@ -106,8 +106,8 @@ jobs:
           cache-from: type=gha
 
   push-aliyun:
-    name: Push to ghcr.io
-    needs: build
+    name: Push to aliyun
+    needs: build-image
     runs-on: ubuntu-latest
 
     steps:
