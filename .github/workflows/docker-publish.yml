@@ -36,6 +36,9 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: false
+          build-args: |
+            REPO_PATH=.
+            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
