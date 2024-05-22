@@ -7,8 +7,6 @@ on:
       - ".github/workflows/docker-publish.yml"
 
 env:
-  IMAGE_LOWERCASE_NAME: test
-  IMAGE_LOWERCASE_OWNER: karhoutam
   GITHUB_REGISTRY: ghcr.io
   ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKERHUB_REGISTRY: docker.io
@@ -20,6 +18,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Lowercase Variables
+        run: |
+          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -33,9 +36,6 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: false
-          build-args: |
-            REPO_PATH=.
-            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
@@ -48,6 +48,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Lowercase Variables
+        run: |
+          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -67,25 +72,28 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: true
-          build-args: |
-            REPO_PATH=.
-            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
+
   push-dockerhub:
     name: Push to dockerhub
     needs: build-image
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Lowercase Variables
+        run: |
+          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log into ghcr.io
+      - name: Log into docker.io
         uses: docker/login-action@v3
         with:
           registry: ${{ env.DOCKERHUB_REGISTRY }}
@@ -98,26 +106,29 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: true
-          build-args: |
-            REPO_PATH=.
-            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.DOCKERHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
 
   push-aliyun:
+  
     name: Push to aliyun
     needs: build-image
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set Lowercase Variables
+        run: |
+          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log into ghcr.io
+      - name: Log into aliyun
         uses: docker/login-action@v3
         with:
           registry: ${{ env.ALIYUN_REGISTRY }}
@@ -130,9 +141,6 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: true
-          build-args: |
-            REPO_PATH=.
-            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
