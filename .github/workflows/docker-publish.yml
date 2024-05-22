@@ -7,6 +7,8 @@ on:
       - ".github/workflows/docker-publish.yml"
 
 env:
+  IMAGE_LOWERCASE_NAME: test
+  IMAGE_LOWERCASE_OWNER: karhoutam
   GITHUB_REGISTRY: ghcr.io
   ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
   DOCKERHUB_REGISTRY: docker.io
@@ -16,12 +18,12 @@ jobs:
   build-image:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
 
     steps:
-      - name: Set Lowercase Variables
-        run: |
-          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,9 +38,6 @@ jobs:
           context: .
           file: .environment/Dockerfile
           push: false
-          build-args: |
-            REPO_PATH=.
-            REPO_NAME=${{ github.event.repository.name }}
           tags: |
             ${{ env.GITHUB_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.ALIYUN_REGISTRY }}/${{ env.IMAGE_LOWERCASE_OWNER }}/${{ env.IMAGE_LOWERCASE_NAME }}:${{ env.IMAGE_TAG }}
@@ -50,11 +49,12 @@ jobs:
     needs: build-image
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     steps:
-      - name: Set Lowercase Variables
-        run: |
-          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -84,11 +84,12 @@ jobs:
     needs: build-image
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     steps:
-      - name: Set Lowercase Variables
-        run: |
-          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -119,11 +120,12 @@ jobs:
     needs: build-image
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     steps:
-      - name: Set Lowercase Variables
-        run: |
-          echo "IMAGE_LOWERCASE_OWNER=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "IMAGE_LOWERCASE_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
           
       - name: Checkout repository
         uses: actions/checkout@v4
